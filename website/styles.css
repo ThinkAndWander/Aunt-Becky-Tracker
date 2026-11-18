@@ -1,0 +1,61 @@
+body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  font-size: larger;
+  background-image: url('page.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+}
+
+h1 {
+    text-align: center;
+}
+
+#page {
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+#page-checkboxes {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    flex-wrap: wrap;
+    max-width: 60rem;
+}
+
+#page-exporting {
+    text-align: center;
+}
+
+.row {
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.row:hover {
+    background-color: #fff8;
+    cursor: pointer;
+}
+
+.row:has(input[type='checkbox']:checked) {
+    background-color: lime;
+}
+
+.section {
+    margin-right: 2rem;
+}
+
+/* Phones, smaller screens */
+@media only screen and (max-width: 50em) {
+    #page-checkboxes {
+        align-items: center;
+        flex-wrap: nowrap;
+        flex-direction: column;
+    }
+}
