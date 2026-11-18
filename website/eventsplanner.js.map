@@ -1,1 +1,0 @@
-{"version":3,"file":"mainapp.js","sources":["../mainapp/main.ts"],"sourcesContent":["import \"./style\";\n\nconst el = document.createElement('P');\nel.append(\"test\");\n\ndocument.body.appendChild(el);"],"names":[],"mappings":";;;CAEA,MAAM,EAAE,GAAG,QAAQ,CAAC,aAAa,CAAC,GAAG,CAAC,CAAC;CACvC,EAAE,CAAC,MAAM,CAAC,MAAM,CAAC,CAAC;CAElB,QAAQ,CAAC,IAAI,CAAC,WAAW,CAAC,EAAE,CAAC;;;;;;"}
