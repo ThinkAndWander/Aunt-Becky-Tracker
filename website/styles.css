@@ -62,17 +62,20 @@ h1 {
     justify-content: space-between;
 }
 
-.row:hover {
+.row:has(label:hover),
+.row:has(input[type='checkbox']:hover) {
     background-color: #fff8;
-    cursor: pointer;
 }
 
 .row:has(input[type='checkbox']:checked) {
     background-color: lime;
 }
 
+.row input[type='checkbox'] {
+    margin: 0; /* Prevent a gap in the clickable area between lbl and chkbx. */
+}
 .row label {
-    width: 100%;
+    width: 100%; /* Entire label area clickable like checkbox. */
 }
 
 .section {

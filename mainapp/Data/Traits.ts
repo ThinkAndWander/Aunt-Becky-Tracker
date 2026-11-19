@@ -1,6 +1,8 @@
 // To update: add a unique ID and give it a name, that's it!
 // IDs do not need to be in order. Never change an ID!
 
+// The next open ID is: 164. Update this line too when you add it.
+
 export const traitsCommon = [
     {name: 'Semi-translucency', ID: 0},
     {name: 'Eyes 4-7', ID: 1},
@@ -39,6 +41,7 @@ export const traitsRare = [
     {name: 'Unnatural pupil colors', ID: 31 },
     {name: 'Bug eyes', ID: 32 },
     {name: 'Metallic blood color', ID: 33 },
+    {name: 'Glowing blood', ID: 163 },
     {name: 'Colored flesh', ID: 34 },
     {name: 'Additional antennae 1-5', ID: 35 },
     {name: 'Antlers/horns 3-10', ID: 36 },

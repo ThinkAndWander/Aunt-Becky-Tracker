@@ -1,6 +1,8 @@
 // To update: add a unique ID and give it a name, that's it!
 // IDs do not need to be in order. Never change an ID!
 
+// The next open ID slot is listed in Traits.ts. See & update it.
+
 export const aptitudesRare = [
     {name: 'Flight', ID: 101 },
     {name: 'Hypnosis', ID: 102 },
