@@ -1,1 +1,0 @@
-This is licensed as CC0-By.
