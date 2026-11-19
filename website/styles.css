@@ -1,3 +1,28 @@
+/* Tabs on the main page */
+.tabs {
+    text-align: center;
+}
+
+.tab {
+  background-color: #fff;
+  border: 0.1rem solid #371d0a;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.tab:hover {
+  background-color: #ddd;
+}
+
+.tab.active {
+  background-color: #ccc;
+}
+
+.page-content {
+    align-self: center;
+}
+
+/* Page styling */
 body {
   height: 100vh;
   width: 100vw;
@@ -22,7 +47,6 @@ h1 {
 #page-checkboxes {
     display: flex;
     justify-content: center;
-    align-self: center;
     flex-wrap: wrap;
     max-width: 60rem;
 }
@@ -45,6 +69,10 @@ h1 {
 
 .row:has(input[type='checkbox']:checked) {
     background-color: lime;
+}
+
+.row label {
+    width: 100%;
 }
 
 .section {
