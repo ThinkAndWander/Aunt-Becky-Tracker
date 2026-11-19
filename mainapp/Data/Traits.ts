@@ -1,5 +1,6 @@
 // To update: add a unique ID and give it a name, that's it!
-// IDs do not need to be in order. Never change an ID!
+// IDs do not need to be listed in order. The order here is the order displayed.
+// Never change an ID! Retire defunct entries by commenting them out to preserve history.
 
 // The next open ID is: 164. Update this line too when you add it.
 
@@ -10,9 +11,9 @@ export const traitsCommon = [
     {name: 'Digit removal', ID: 3 },
     {name: 'Long face', ID: 4 },
     {name: 'Petal-split mouth', ID: 5 },
-    {name: 'Additional tongues 1-4', ID: 6 },
+    // {name: 'Additional tongues', ID: 6 }, tongues are now free to design
     {name: 'Tentacles 2-4', ID: 7 },
-    {name: 'Tentacle hooks/barbs', ID: 8 },
+    {name: 'Tentacle hooks/barbs/harpoons', ID: 8 },
     {name: 'Stinging tendrils 1-10', ID: 9 },
     {name: 'Animal ears 2', ID: 10 },
     {name: 'Horns/Antlers 1-2', ID: 11 },
@@ -37,8 +38,8 @@ export const traitsRare = [
     {name: 'Colored saliva', ID: 27 },
     {name: 'Metallic sclera', ID: 28 },
     {name: 'Black sclera', ID: 29 },
-    {name: 'Unnatural pupil shapes', ID: 30 },
-    {name: 'Unnatural pupil colors', ID: 31 },
+    {name: 'Unnatural pupils', ID: 30 },
+    //{name: 'Unnatural pupil colors', ID: 31 }, merged into ID 30
     {name: 'Bug eyes', ID: 32 },
     {name: 'Metallic blood color', ID: 33 },
     {name: 'Glowing blood', ID: 163 },
@@ -79,24 +80,24 @@ export const traitsEldritch = [
     {name: 'Semi-translucency', ID: 65 },
     {name: 'Transparency', ID: 66 },
     {name: 'Albinism', ID: 67 },
-    {name: 'Eyes 8+', ID: 68 },
+    //{name: 'Eyes 8+', ID: 68 },
     {name: 'Eyestalk growths', ID: 69 },
     {name: 'Additional heads', ID: 70 },
     {name: 'Additional antennae 6+', ID: 71 },
     {name: 'Antennae removal', ID: 72 },
-    {name: 'Antlers/horns 11+', ID: 73 },
-    {name: 'Animal ears 11+', ID: 74 },
-    {name: 'Tentacles 13+', ID: 75 },
+    //{name: 'Antlers/horns 11+', ID: 73 },
+    //{name: 'Animal ears 11+', ID: 74 },
+    //{name: 'Tentacles 13+', ID: 75 },
     {name: 'Lantern lure growths', ID: 76 },
-    {name: 'Wings 5+', ID: 77 },
+    //{name: 'Wings 5+', ID: 77 },
     {name: 'Zipper mouths', ID: 78 },
     {name: 'Sucker-like mouths 11+', ID: 79 },
     {name: 'Additional mouths', ID: 80 },
     {name: 'Size-shifting', ID: 81 },
     {name: 'Shapeshifting', ID: 82 },
-    {name: 'Split tail 5+', ID: 83 },
-    {name: 'Additional tails 5+', ID: 84 },
-    {name: 'Additional limbs 5+', ID: 85 },
+    //{name: 'Split tail 5+', ID: 83 },
+    //{name: 'Additional tails 5+', ID: 84 },
+    //{name: 'Additional limbs 5+', ID: 85 },
     {name: 'Additional torsos', ID: 86 },
     {name: 'Luminous body', ID: 87 },
     {name: 'Luminous markings', ID: 88 },

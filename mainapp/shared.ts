@@ -1,25 +1,45 @@
-export type spawn = {
-    name: string // Spawn name
-    traits: number[] // This spawn's traits by numeric ID, same format as collections.
-    about: string // Anything the user wants to note about the spawn.
-    history: string // History of ownership, trading, etc.
-}
-
 export type storage = {
     collections: number[],
-    spawn: spawn[],
+    cradlePoints: number,
+    spawnTickets: number,
+    growthTickets: number,
+    vouchersAndOther: string,
+    markedOffRewards: {
+        dna5_1spawn: boolean,
+        dna10_1growth: boolean,
+        dna25_1spawn: boolean,
+        dna50_1growth: boolean,
+        dna75_1spawn: boolean,
+        dna100_1growth_1spawn: boolean,
+        dna150_2growth_1spawn: boolean,
+        dna200_3growth_2spawn_1EldritchAptitude: boolean,
+    },
     usernotes: string
 }
+
+export type entryType = { name: string, ID: number }
 
 const LOCALSTORAGEITEM = 'auntbeckytracker'
 
 /** The working memory that gets saved to local storage. */
 export let storageData: storage = {
     collections: [],
-    spawn: [],
+    cradlePoints: 0,
+    spawnTickets: 0,
+    growthTickets: 0,
+    vouchersAndOther: "",
+    markedOffRewards: {
+        dna5_1spawn: false,
+        dna10_1growth: false,
+        dna25_1spawn: false,
+        dna50_1growth: false,
+        dna75_1spawn: false,
+        dna100_1growth_1spawn: false,
+        dna150_2growth_1spawn: false,
+        dna200_3growth_2spawn_1EldritchAptitude: false,
+    },
     usernotes: ""
 };
-
 
 export function saveLocalStorage(): void {
     localStorage.setItem(LOCALSTORAGEITEM, JSON.stringify(storageData));
@@ -31,14 +51,27 @@ export function reloadLocalStorage(): storage {
         storageData = JSON.parse(loaded);
 
         // Fault detection and attempted repair.
-        if (typeof storageData !== 'object'
-            || !storageData.collections || !Array.isArray(storageData.collections)
-            || !storageData.spawn || !Array.isArray(storageData.spawn)
-            || storageData.usernotes === undefined || storageData.usernotes === null)
+        if (typeof storageData !== 'object' ||
+            !Array.isArray(storageData.collections)
+            || storageData.usernotes === undefined
+            || storageData.usernotes === null)
         {
             const reconstructedData: storage = {
                 collections: [],
-                spawn: [],
+                cradlePoints: 0,
+                spawnTickets: 0,
+                growthTickets: 0,
+                vouchersAndOther: '' + (storageData.vouchersAndOther ?? ''),
+                markedOffRewards: {
+                    dna5_1spawn: false,
+                    dna10_1growth: false,
+                    dna25_1spawn: false,
+                    dna50_1growth: false,
+                    dna75_1spawn: false,
+                    dna100_1growth_1spawn: false,
+                    dna150_2growth_1spawn: false,
+                    dna200_3growth_2spawn_1EldritchAptitude: false,
+                },
                 usernotes: '' + (storageData.usernotes ?? '')
             };
 
@@ -48,18 +81,7 @@ export function reloadLocalStorage(): storage {
                 }
             }
 
-            if (storageData?.spawn && Array.isArray(storageData.spawn)) {
-                for (let i = 0; i < storageData.spawn.length; i++) {
-                    const reconstructedSpawn: spawn = {
-                        name: '' + (storageData.spawn[i].name ?? ''),
-                        about: '' + (storageData.spawn[i].about ?? ''),
-                        history: '' + (storageData.spawn[i].history ?? ''),
-                        traits: storageData.spawn[i].traits?.map(o => +o) ?? []
-                    };
-
-                    reconstructedData.spawn.push(reconstructedSpawn);
-                }
-            }
+            storageData = reconstructedData;
         }
     }
 

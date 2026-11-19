@@ -1,16 +1,11 @@
 import * as traits from "./Data/Traits";
 import * as aptitudes from "./Data/Aptitudes";
 import { achievements } from "./Data/Achievements";
-import { saveLocalStorage, storageData } from "./shared";
+import { entryType, saveLocalStorage, storageData } from "./shared";
+import { importFrom, updateExportData } from "./main";
 
 const ID_PREFIX = 'chkbx';
-type entryType = { name: string, ID: number }
 
-const exportButton = document.createElement('A') as HTMLAnchorElement;
-exportButton.id = 'button-export';
-exportButton.download = "Aunt Becky Tracker.txt";
-exportButton.textContent = 'Export';
-exportButton.href = "data:text/plain;charset=UTF-8,"
 const checkboxes = document.createElement('DIV') as HTMLDivElement;
 checkboxes.id = 'page-checkboxes';
 
@@ -18,43 +13,29 @@ checkboxes.id = 'page-checkboxes';
 export function loadTab(content: 'traits'|'aptitudes'|'achievements'): HTMLElement[] {
     const elements: HTMLElement[] = [];
 
-    const pageDescription = document.createElement('P') as HTMLParagraphElement;
-    pageDescription.textContent = 'This is a personal tracker you can use to keep track of your achievements in the Spawn of Aunt Becky ARPG! You can also reach out on the discord to ask about updates, changes, or give feedback. I try to keep it up to date when I can!';
-
-    const importExportContainer = document.createElement('DIV') as HTMLDivElement;
-    importExportContainer.id = 'page-exporting';
-
-    const importButton = document.createElement('INPUT') as HTMLInputElement;
-    importButton.id = 'button-import';
-    importButton.type = 'file';
-    importButton.textContent = 'Import';
-    importButton.addEventListener("change", () => {
-        if (importButton.files) {
-            const file = importButton.files[0];
-            file.text().then(data => importFrom(data));
-        }
-    });
-
-    importExportContainer.replaceChildren(importButton, exportButton);
-    elements.push(importExportContainer);
+    const collectionDescription = document.createElement('P') as HTMLParagraphElement;
+    collectionDescription.id = "in-page-description";
 
     switch (content) {
         case 'traits':
+            collectionDescription.textContent = "A catch-em-all tracker for the traits you've had with a spawn before, including dead/traded ones.";
             checkboxes.replaceChildren(
-                pageDescription,
+                collectionDescription,
                 createSection('Common Traits', traits.traitsCommon),
                 createSection('Rare Traits', traits.traitsRare),
                 createSection('Eldritch Traits', traits.traitsEldritch));
             break;
         case 'aptitudes':
+            collectionDescription.textContent = "A catch-em-all tracker for the aptitudes you've had with a spawn before, including dead/traded ones.";
             checkboxes.replaceChildren(
-                pageDescription,
+                collectionDescription,
                 createSection('Rare Aptitudes', aptitudes.aptitudesRare),
                 createSection('Rare Eldritch Aptitudes', aptitudes.aptitudesRareEldritch));
             break;
         case 'achievements':
         default:
-            checkboxes.replaceChildren(pageDescription, createSection('Achievements', achievements));
+            collectionDescription.textContent = "Some goals you might wish to track, for fun!";
+            checkboxes.replaceChildren(collectionDescription, createSection('Achievements', achievements));
             break;
     }
 
@@ -108,62 +89,15 @@ function onCheckboxClicked(chkbx: HTMLInputElement, entry: entryType) {
     updateExportData();
 }
 
-/** Converts all data to a legible list where each entry is like "#21 Invisibility". */
-function exportToString() {
-    const list: entryType[] = [];
-    const all = [
-        ...traits.traitsCommon,
-        ...traits.traitsRare,
-        ...traits.traitsEldritch,
-        ...aptitudes.aptitudesRare,
-        ...aptitudes.aptitudesRareEldritch,
-        ...achievements
-    ];
-
-    storageData.collections.forEach(id => {
-        all.some(entry => {
-            if (entry.ID === id) {
-                list.push(entry);
-                return true;
-            }
-
-            return false;
-        });
-    });
-
-    const unsorted = list.map(entry => `#${entry.ID + 1} ${entry.name}`)
-
-    // Sort numerically so "#1" is before "#10"(key === keyInTabs)
-    const collator = new Intl.Collator([], {numeric: true});
-    unsorted.sort((a, b) => collator.compare(a, b));
-
-    return unsorted.join('\n');
-}
-
 /** Edits the data of every checkbox to match the format like "#21 Invisibility".
   * Only the IDs matter. */
-function importFrom(data: string|number[]) {
-    let ids: number[];
-    if (typeof data === 'string') {
-        ids = data.split('\n')
-            .map(entry => entry.substring(1).match('\\d*'))
-            .filter(entry => entry)
-            .map(entry => Number.parseInt(entry![0]) - 1);
-    } else {
-        ids = data
-    }
-
-    storageData.collections = ids;
-
+export function updateWithImport() {
     checkboxes.querySelectorAll('.row').forEach(row => {
         const chkbx = (row as HTMLDivElement).querySelector('input') as HTMLInputElement;
-        const id = Number.parseInt(chkbx.id.substring(ID_PREFIX.length));
-        chkbx.checked = ids.includes(id);
+        if (chkbx) {
+            const id = Number.parseInt(chkbx.id.substring(ID_PREFIX.length));
+            chkbx.checked = storageData.collections.includes(id);
+        }
     });
     saveLocalStorage();
-}
-
-/** Updates the export data, usually called whenever a related checkbox changes. */
-function updateExportData(): void {
-    exportButton.href = 'data:text/plain;charset=UTF-8,' + encodeURIComponent(exportToString());
 }
